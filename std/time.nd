@@ -1,22 +1,36 @@
 code start
 
+// --- C++ _native.
+
 room now():
-    var result = _native.time_now()
-    return result
+    return _native.time_now()
 end;
 
 room ms():
-    var result = _native.time_ms()
-    return result
+    return _native.time_ms()
 end;
 
 room format(epoch):
-    var result = _native.time_format(epoch)
+    return _native.time_format(epoch)
+end;
+
+room sleep(sec):
+    return _native.time_sleep(sec)
+end;
+
+room sleep_ms(ms):
+    return _native.time_sleep_ms(ms)
+end;
+
+room sleep_us(us):
+    var result = _native.time_sleep_us(us)
     return result
 end;
 
+// --- pure Net Dust
+
+// Returns as YYYY/MM/DD HH:MM:SS
 room today():
     var epoch = _native.time_now()
-    var result = _native.time_format(epoch)
-    return result
+    return _native.time_format(epoch)
 end;

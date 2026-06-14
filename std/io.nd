@@ -1,26 +1,26 @@
 code start
 
-room print(value):
-    var _ = _native.io_print(value)
-end;
-
 room println(value):
     var _ = _native.io_println(value)
 end;
 
-room input(prompt):
-    var result = _native.io_input(prompt)
-    return result
+// io.print Includes line breaks but is an explicit alias
+room print(value):
+    var _ = _native.io_print(value)
 end;
 
 room newline():
     var _ = _native.io_print("")
 end;
 
-room hr():
-    var _ = _native.io_print("----------------------------------------")
+room input(prompt):
+    return _native.io_input(prompt)
 end;
 
-room dump(label, value):
-    var _ = _native.io_print(label + " => " + value)
+room dump(key, value):
+    var _ = _native.io_println(key + " = " + value)
+end;
+
+room hr():
+    var _ = _native.io_println("----------------------------------------")
 end;

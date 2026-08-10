@@ -8,7 +8,7 @@ Building from source is not required for ESP32. You can simply flash the pre com
 
 If you are using **VS Code + platformIO**, the easiest way to flash the pre-compiled binary is using the platformIO CLI.
 
-1. Download the latest `firmware.bin` from the [Releases](../../releases) page.
+1. Download the latest `firmware.bin` from the [Releases](https://github.com/nknnt/netdust/releases) page.
 2. Open your terminal in VS Code and run the following command:
 
 ```bash
@@ -17,7 +17,7 @@ pio run --target upload --upload-port /dev/ttyUSB0 --firmware firmware.bin
 
 ### Method 2: esptool.py (CLI)
 
-1. Download the latest `firmware.bin` from the [Releases](../../releases) page.
+1. Download the latest `firmware.bin` from the [Releases](https://github.com/nknnt/netdust/releases) page.
 2. Flash the binary using esptool:
 
 ```bash

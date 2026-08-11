@@ -1,0 +1,114 @@
+code start
+
+// works properly with NetDust Runtime 1.2.2 or later.
+  
+room clear():
+    _native.tui_clear()
+end;
+
+room clear_line():
+    _native.tui_clear_line()
+end;
+
+room move(x, y):
+    _native.tui_move(x, y)
+end;
+
+room hide_cursor():
+    _native.tui_hide_cursor()
+end;
+
+room show_cursor():
+    _native.tui_show_cursor()
+end;
+
+room save_cursor():
+    _native.tui_save_cursor()
+end;
+
+room restore_cursor():
+    _native.tui_restore_cursor()
+end;
+
+room enter_screen():
+    _native.tui_alt_screen_on()
+end;
+
+room leave_screen():
+    _native.tui_alt_screen_off()
+end;
+
+// --- screen info
+// width()/height() are not wrapped because, in this engine,
+// the return values of namespaced room calls cannot be reliably trusted.
+// if needed, call them directly from the script:
+//   var w = _native.tui_width()
+//   var h = _native.tui_height()
+
+// --- output
+// for general text output (print/println), use std/io:
+//   bring : ntd.io -> ntd.io.print(text) / ntd.io.println(text)
+// TUI only provides output with specified cursor coordinates.
+room write_at(x, y, text):
+    _native.tui_write_at(x, y, text)
+end;
+
+room color(name):
+    _native.tui_color(name)
+end;
+
+room bg(name):
+    _native.tui_bg(name)
+end;
+
+room bold():
+    _native.tui_bold()
+end;
+
+room dim():
+    _native.tui_dim()
+end;
+
+room underline():
+    _native.tui_underline()
+end;
+
+room invert():
+    _native.tui_invert()
+end;
+
+room reset():
+    _native.tui_reset()
+end;
+
+room hline(x, y, len):
+    _native.tui_hline(x, y, len)
+end;
+
+room vline(x, y, len):
+    _native.tui_vline(x, y, len)
+end;
+
+room box(x, y, w, h):
+    _native.tui_box(x, y, w, h)
+end;
+
+// --- input
+// kbhit()/getkey() are also not wrapped for the same reason.
+// always call them directly:
+//   var hit = _native.tui_kbhit()
+//   var key = _native.tui_getkey()
+room raw_on():
+    _native.tui_raw_on()
+end;
+
+room raw_off():
+    _native.tui_raw_off()
+end;
+
+// --- restore terminal state on exit (must be called if raw_on is used after init/setup)
+room shutdown():
+    _native.tui_show_cursor()
+    _native.tui_reset()
+    _native.tui_raw_off()
+end;

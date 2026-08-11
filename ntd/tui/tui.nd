@@ -1,6 +1,6 @@
 code start
 
-// works properly with NetDust Runtime 1.2.2 or later.
+// works properly with NetDust Runtime 1.2.3 or later.
   
 room clear():
     _native.tui_clear()
@@ -111,4 +111,17 @@ room shutdown():
     _native.tui_show_cursor()
     _native.tui_reset()
     _native.tui_raw_off()
+end;
+
+// --- layout
+room fill_rect(x, y, w, h, ch):
+    _native.tui_fill_rect(x, y, w, h, ch)
+end;
+
+room box2(x, y, w, h):
+    _native.tui_box2(x, y, w, h)
+end;
+
+room progress_bar(x, y, width, percent, filled_char, empty_char):
+    _native.tui_progress_bar(x, y, width, percent, filled_char, empty_char)
 end;

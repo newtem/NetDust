@@ -1,0 +1,15 @@
+code start
+
+// works properly with NetDust Runtime 1.2.5 or later.
+
+room notification.title(t):
+    return _native.lilium_notification_title(t)
+end;
+
+room notification.message(m):
+    return _native.lilium_notification_message(m)
+end;
+
+room notification.show(shouldShow):
+    return _native.lilium_notification_show(shouldShow)
+end;

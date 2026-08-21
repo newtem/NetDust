@@ -1,0 +1,120 @@
+code start
+bring : std.string
+
+room format.number(n):
+    var s = n;
+    var sign = "";
+    if(str_starts(s, "-") == "true"):
+        sign = "-";
+        s = str_substr(s, 1);
+    end;
+    num len = str_len(s);
+    var result = "";
+    num count = 0;
+    num i = len - 1;
+    while(i >= 0):
+        var ch = str_substr(s, i, 1);
+        result = ch + result;
+        count = count + 1;
+        if(count % 3 == 0):
+            if(i != 0):
+                result = "," + result;
+            end;
+        end;
+        i = i - 1;
+    end;
+    return sign + result;
+end;
+
+room format.bytes(bytes):
+    if(bytes < 1024):
+        return bytes + " B";
+    end;
+    num kb = bytes / 1024;
+    if(kb < 1024):
+        return kb + " KB";
+    end;
+    num mb = kb / 1024;
+    if(mb < 1024):
+        return mb + " MB";
+    end;
+    num gb = mb / 1024;
+    return gb + " GB";
+end;
+
+room percent(part, total):
+    if(total == 0):
+        return 0;
+    end;
+    num result = (part / total) * 100;
+    return result;
+end;
+
+room truncate(s, maxLen):
+    num len = str_len(s);
+    if(len <= maxLen):
+        return s;
+    end;
+    var head = str_substr(s, 0, maxLen);
+    return head + "...";
+end;
+
+room mask_string(s, visible):
+    num len = str_len(s);
+    if(visible >= len):
+        return s;
+    end;
+    var head = str_substr(s, 0, visible);
+    num maskLen = len - visible;
+    var stars = str_repeat("*", maskLen);
+    return head + stars;
+end;
+
+room title_case(s):
+    num len = str_len(s);
+    var result = "";
+    bool newWord = true;
+    num i = 0;
+    while(i < len):
+        var ch = str_substr(s, i, 1);
+        if(ch == " "):
+            result = result + ch;
+            newWord = true;
+        else:
+            if(newWord == true):
+                result = result + str_upper(ch);
+            else:
+                result = result + str_lower(ch);
+            end;
+            newWord = false;
+        end;
+        i = i + 1;
+    end;
+    return result;
+end;
+
+room is.blank(s):
+    var t = str_trim(s);
+    if(str_len(t) == 0):
+        return "true";
+    end;
+    return "false";
+end;
+
+room is.valid_email(s):
+    if(str_contains(s, "@") != "true"):
+        return "false";
+    end;
+    if(str_contains(s, " ") == "true"):
+        return "false";
+    end;
+    num atPos = str_index(s, "@");
+    var afterAt = str_substr(s, atPos + 1);
+    if(str_contains(afterAt, ".") != "true"):
+        return "false";
+    end;
+    if(str_len(afterAt) < 3):
+        return "false";
+    end;
+    return "true";
+end;

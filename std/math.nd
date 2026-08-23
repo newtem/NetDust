@@ -1,7 +1,7 @@
 code start
 
-// We don't have recursion, loops
-// Handle all operations with _native or arithmetic expressions
+// some while loop works properly with NetDust Runtime 1.2.6 or later.
+// handle all operations with _native or arithmetic expressions
 
 // --- const (pure)
 room pi():
@@ -83,9 +83,11 @@ room ceil(x):
 end;
 room round(x):
     if (x >= 0):
-        return call std.math.floor(x + 0.5)
+        var r1 = call std.math.floor(x + 0.5)
+        return r1
     end;
-    return call std.math.ceil(x - 0.5)
+    var r2 = call std.math.ceil(x - 0.5)
+    return r2
 end;
 
 // --- pure netdust: sqrt
@@ -121,8 +123,10 @@ end;
 // --- pure netdust: sin / cos / tan
 
 room sin(x):
-    var k = call std.math.floor(x / call std.math.tau() + 0.5)
-    var xr = x - call std.math.tau() * k
+    var t = call std.math.tau()
+    var kArg = x / t + 0.5
+    var k = call std.math.floor(kArg)
+    var xr = x - t * k
     var y = xr
     if (xr > 1.5707963267948966):
         y = 3.141592653589793 - xr
@@ -138,7 +142,8 @@ room sin(x):
     return y * (1 - y2 / 6 + y4 / 120 - y6 / 5040 + y8 / 362880 - y10 / 39916800)
 end;
 room cos(x):
-    return call std.math.sin(x + 1.5707963267948966)
+    var s = call std.math.sin(x + 1.5707963267948966)
+    return s
 end;
 room tan(x):
     var s = call std.math.sin(x)
@@ -159,7 +164,8 @@ room lerp(a, b, t):
     return a + (b - a) * t
 end;
 room hypot(a, b):
-    return call std.math.sqrt(a * a + b * b)
+    var h = call std.math.sqrt(a * a + b * b)
+    return h
 end;
 room deg(r):
     return r * 57.29577951308232
@@ -173,58 +179,38 @@ end;
 
 // factorial recommended: n <= 20 (to prevent overflow)
 room factorial(n):
-    var an = call std.math.floor(call std.math.abs(n))
+    var absN = call std.math.abs(n)
+    var an = call std.math.floor(absN)
     var r = 1
-    if (an >= 2): r = r * 2 end;
-    if (an >= 3): r = r * 3 end;
-    if (an >= 4): r = r * 4 end;
-    if (an >= 5): r = r * 5 end;
-    if (an >= 6): r = r * 6 end;
-    if (an >= 7): r = r * 7 end;
-    if (an >= 8): r = r * 8 end;
-    if (an >= 9): r = r * 9 end;
-    if (an >= 10): r = r * 10 end;
-    if (an >= 11): r = r * 11 end;
-    if (an >= 12): r = r * 12 end;
-    if (an >= 13): r = r * 13 end;
-    if (an >= 14): r = r * 14 end;
-    if (an >= 15): r = r * 15 end;
-    if (an >= 16): r = r * 16 end;
-    if (an >= 17): r = r * 17 end;
-    if (an >= 18): r = r * 18 end;
-    if (an >= 19): r = r * 19 end;
-    if (an >= 20): r = r * 20 end;
+    if (an >= 2):
+        for(i in 2..an+1):
+            r = r * i
+        end;
+    end;
     return r
 end;
 
 room gcd(a, b):
-    var ia = call std.math.floor(call std.math.abs(a))
-    var ib = call std.math.floor(call std.math.abs(b))
-    var r0 = ia % ib
-    if (r0 == 0): return ib end;
-    var r1 = ib % r0
-    if (r1 == 0): return r0 end;
-    var r2 = r0 % r1
-    if (r2 == 0): return r1 end;
-    var r3 = r1 % r2
-    if (r3 == 0): return r2 end;
-    var r4 = r2 % r3
-    if (r4 == 0): return r3 end;
-    var r5 = r3 % r4
-    if (r5 == 0): return r4 end;
-    var r6 = r4 % r5
-    if (r6 == 0): return r5 end;
-    var r7 = r5 % r6
-    if (r7 == 0): return r6 end;
-    var r8 = r6 % r7
-    if (r8 == 0): return r7 end;
-    var r9 = r7 % r8
-    if (r9 == 0): return r8 end;
-    return r9
+    var absA = call std.math.abs(a)
+    var ia = call std.math.floor(absA)
+    var absB = call std.math.abs(b)
+    var ib = call std.math.floor(absB)
+    while(ib != 0):
+        var r = ia % ib
+        ia = ib
+        ib = r
+    end;
+    return ia
 end;
+
 room lcm(a, b):
-    var ia = call std.math.floor(call std.math.abs(a))
-    var ib = call std.math.floor(call std.math.abs(b))
+    var absA = call std.math.abs(a)
+    var ia = call std.math.floor(absA)
+    var absB = call std.math.abs(b)
+    var ib = call std.math.floor(absB)
     var g = call std.math.gcd(ia, ib)
-    return call std.math.floor(ia / g) * ib
+    var q = ia / g
+    var fq = call std.math.floor(q)
+    var result = fq * ib
+    return result
 end;

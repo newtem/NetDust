@@ -1,15 +1,23 @@
 code start
 
-// works properly with NetDust Runtime 1.2.5 or later.
+// works properly with NetDust Runtime 1.2.6 or later.
 
-room notification.title(t):
-    return _native.lilium_notification_title(t)
+var lilium_title = "Lilium"
+var lilium_message = ""
+
+room notification.title(text):
+    lilium_title = text
+    return lilium_title
 end;
 
-room notification.message(m):
-    return _native.lilium_notification_message(m)
+room notification.message(text):
+    lilium_message = text
+    return lilium_message
 end;
 
 room notification.show(shouldShow):
-    return _native.lilium_notification_show(shouldShow)
+    if(shouldShow == "false"):
+        return "false"
+    end;
+    return _native.notify_send(lilium_title, lilium_message)
 end;

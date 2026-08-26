@@ -1,6 +1,7 @@
 # NetDust
 .nd to write, ndr to run a small scripting language.<br>
-from entry point to architecture.
+from entry point to architecture.<br>
+[official website](https://netdust.nknnt.com)
 
 ## Official Libraries
  + std/: The official standard library. It is stable with no major or breaking changes.

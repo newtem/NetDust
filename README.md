@@ -16,6 +16,8 @@ from entry point to architecture.<br>
 | **Net Dust Runtime (ndr)** | macOS / Cross platform | C++/Objective-C |
 | **Noctura** | Windows | C# .NET |
 
+There are other engines, but they have all been discontinued.
+
 > [!WARNING]
 >
 > **NetDust is currently under active development, so its syntax may change and some features may not work as expected.**

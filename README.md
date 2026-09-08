@@ -14,8 +14,8 @@ from entry point to architecture.<br>
 | Engine | Platform | Based |
 | :--- | :---: | :--- |
 | **Net Dust Runtime (ndr)** | macOS / Cross platform | C++/Objective-C |
-| **Noctura (Legacy)** | Windows | C# .NET |
-| **Noctura** | Windows | embeds ndr engine via C++/CLI |
+| **Noctura - Aurora (Legacy)** | Windows | C# .NET |
+| **Noctura - Solstice** | Windows | embeds ndr engine via C++/CLI |
 
 There are other engines, but they have all been discontinued.
 
